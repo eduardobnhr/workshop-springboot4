@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.servicosweb.course.entities.Category;
 import com.servicosweb.course.entities.Order;
+import com.servicosweb.course.entities.OrderItem;
 import com.servicosweb.course.entities.Product;
 import com.servicosweb.course.entities.User;
 import com.servicosweb.course.entities.enums.OrderStatus;
 import com.servicosweb.course.repositories.CategoryRepository;
+import com.servicosweb.course.repositories.OrderItemRepository;
 import com.servicosweb.course.repositories.OrderRepository;
 import com.servicosweb.course.repositories.ProductRepository;
 import com.servicosweb.course.repositories.UserRepository;
@@ -32,6 +34,9 @@ public class TestConfig implements CommandLineRunner{
 	private CategoryRepository categoryRepository;
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -72,6 +77,14 @@ public class TestConfig implements CommandLineRunner{
 		//salvar os usuarios no banco
 		userRepository.saveAll(Arrays.asList(u1, u2, u3));
 		orderRepository.saveAll(Arrays.asList(o1,o2,o3));
+		
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+
+		orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
+		
 		
 	}
 	
